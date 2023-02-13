@@ -2,11 +2,9 @@
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-namespace OpenWeatherMapAPI;
 
 
-
-class program
+class Program
 {
     private static void Main(string[] args)
     {
@@ -19,50 +17,24 @@ class program
             Console.WriteLine();
             Console.WriteLine("Please enter the city name: ");
             var city_name = Console.ReadLine();
-            var weatherURL = $"http://api.openweathermap.org/data/2.5/weather?q={{city_name}}&appid={{api_key}}";
+            var weatherURL = $"https://api.openweathermap.org/data/2.5/weather?q={city_name}&units=imperial&appid={api_key}";
 
             var response = client.GetStringAsync(weatherURL).Result;
-            Console.WriteLine(response);
+            var formattedResponse = JObject.Parse(response).GetValue("main").ToString();
+            Console.WriteLine(formattedResponse);
             Console.WriteLine();
+            Console.WriteLine("Would you like a different city?");
+            var userinput = Console.ReadLine();
+            Console.WriteLine();
+            
+            if (userinput.ToLower() == "no")
+
+            {
+                break;
+            }
 
 
 
         }
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
